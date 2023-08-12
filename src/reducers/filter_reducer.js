@@ -82,6 +82,21 @@ const filter_reducer = (state, action) => {
     const { name, value } = action.payload
     return { ...state, filters: { ...state.filters, [name]: value } }
   }
+  if (action.type === CLEAR_FILTERS) {
+    return {
+      ...state,
+
+      filters: {
+        ...state.filters,
+        text: '',
+        category: 'all',
+        company: 'all',
+        color: 'all',
+        price: state.filters.max_price,
+        shipping: false,
+      },
+    }
+  }
   if (action.type === FILTER_PRODUCTS) {
     // console.log('filtering products')
     return { ...state }
