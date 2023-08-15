@@ -10,7 +10,6 @@ const AddToCart = ({ product }) => {
   const { id, colors, stock } = product
   const [mainColor, setMainColor] = useState(colors[0])
   const [amount, setAmount] = useState(1)
-  console.log(stock)
   const decrease = () => {
     setAmount((oldAmount) => {
       let tempAmount = oldAmount - 1
