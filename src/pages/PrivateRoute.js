@@ -1,16 +1,16 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
+
+// kullanıcı login olduktan sonra url'den checkout sayfasına gidemediği için user verisini useAuth0 kancasından alıyoruz ve App.js'i AuthWrapper ile sarıyoruz.
 import { useAuth0 } from '@auth0/auth0-react'
-// will remove later
-import { useUserContext } from '../context/user_context'
 
 const PrivateRoute = ({ children, ...rest }) => {
-  const { myUser } = useUserContext()
+  const { user } = useAuth0()
   return (
     <Route
       {...rest}
       render={() => {
-        return myUser ? children : <Redirect to='/' />
+        return user ? children : <Redirect to='/' />
       }}
     ></Route>
   )
