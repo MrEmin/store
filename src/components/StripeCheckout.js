@@ -21,7 +21,7 @@ const CheckoutForm = () => {
   const history = useHistory()
 
   // STRIPE STUFF
-  const [succeeded, setSucceeded] = useState(false)
+  const [succeeded, setSucceeded] = useState(true)
   const [error, setError] = useState(null)
   const [processing, setProcessing] = useState('')
   const [disabled, setDisabled] = useState(true)
@@ -48,7 +48,12 @@ const CheckoutForm = () => {
   }
 
   const createPaymentIntent = async () => {
-    console.log('hello from stripe checkout')
+    try {
+      const data = await axios.post(
+        '/.netlify/functions/create-payment-intent',
+        JSON.stringify({ cart, total_amount, shipping_fee })
+      )
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -80,9 +85,9 @@ const CheckoutForm = () => {
         )}
         {/* Show a success message upon completion */}
         <p className={succeeded ? 'result-message' : 'result-message hidden'}>
-          Payment succeeded, see the result in your
+          Payment succeeded, see the result in your{' '}
           <a href={`https://dashboard.stripe.com/test/payments`}>
-            Stripe dashboard.
+            Stripe dashboard.{' '}
           </a>
           Refresh the page to pay again
         </p>
